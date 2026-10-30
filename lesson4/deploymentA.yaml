@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: a-deployment
+spec:
+  selector:
+    matchLabels:
+      app: a-deployment
+  replicas: 1 # Сколько реплик запускать 
+  template:
+    metadata:
+      labels:
+        app: a-deployment
+    spec:
+      containers:
+      - name: a-deployment
+        image: olegtar/testapp:vA
+        ports:
+        - containerPort: 8080
+        resources:
+          limits:
+            memory: "50Mi" # Ограничение (лимит) по памяти      
+        readinessProbe:
+          httpGet:
+            path: /hc
+            port: 8080
