@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: a-version
+  annotations:
+    nginx.ingress.kubernetes.io/canary: "false"
+    cert-manager.io/issuer: "letsencrypt"
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - stateofnet.ru
+    secretName: letsencrypt-secret
+  rules:
+    - host: stateofnet.ru
+      http:                
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:    
+                name: a-service
+                port:
+                  number: 80
