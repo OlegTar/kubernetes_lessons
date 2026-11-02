@@ -4,4 +4,4 @@
 
 открыть в браузере https://stateofnet.ru/endpoint
 
-Полно: 
+Полно: https://teletype.in/@olegtar/te7DB2PYFHu
