@@ -1,0 +1,19 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: testapp
+  labels:
+    release: prom-grafana # <-- ОБЯЗАТЕЛЬНО: этот лейбл должен совпадать с serviceMonitorSelector вашего Prometheus
+    app: testapp
+spec:
+  selector:
+    matchLabels:
+      app: testapp # <-- Должно точно совпадать с selector вашего Service
+  namespaceSelector:
+    matchNames:
+      - default # <-- Автоматически подставит неймспейс, куда вы ставите чарт
+  endpoints:
+    - port: http # <-- Должно ТОЧНО совпадать с 'name' порта в вашем Service (шаг 1)
+      path: /metrics
+      interval: 15s
+      scrapeTimeout: 10s
